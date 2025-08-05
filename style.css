@@ -1,0 +1,131 @@
+    :root {
+        --cell-size: 100px;
+        --mark-size: calc(var(--cell-size) * .8);
+        --border-color: #333;
+        --x-color: #e63946;
+        --o-color: #1d3557;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f1faee, #dff6f0);
+        color: #1d3557;
+        transition: background 1s ease;
+    }
+
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 0.3em;
+        animation: slideDown 0.7s ease-out;
+    }
+
+    @keyframes slideDown {
+        from { transform: translateY(-20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    #status-display {
+        font-size: 1.5rem;
+        margin-bottom: 1em;
+        font-weight: bold;
+        min-height: 2rem;
+    }
+
+    #game-board {
+        display: grid;
+        grid-template-columns: repeat(3, var(--cell-size));
+        grid-template-rows: repeat(3, var(--cell-size));
+        gap: 5px;
+        background-color: var(--border-color);
+        border-radius: 15px;
+        padding: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .cell {
+        background: #fefefe;
+        width: var(--cell-size);
+        height: var(--cell-size);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--mark-size);
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        border-radius: 10px;
+        box-shadow: inset 0 0 0 2px #ccc;
+    }
+
+    .cell:not(.x):not(.o):hover {
+        background-color: #e0fbfc;
+        transform: scale(1.05);
+    }
+
+    .cell.x {
+        color: var(--x-color);
+        animation: pop 0.3s ease;
+    }
+
+    .cell.o {
+        color: var(--o-color);
+        animation: pop 0.3s ease;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0); }
+        to { transform: scale(1); }
+    }
+
+    body.computer-turn .cell:not(.x):not(.o) {
+        cursor: not-allowed;
+        background-color: #f1faee;
+    }
+
+    #restart-button {
+        margin-top: 2em;
+        padding: 0.8em 2em;
+        font-size: 1rem;
+        font-weight: bold;
+        color: #f1faee;
+        background: linear-gradient(to right, #1d3557, #457b9d);
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #restart-button:hover {
+        background: #1d3557;
+        transform: scale(1.05);
+    }
+
+    #restart-button:active {
+        transform: scale(0.97);
+    }
+
+    @media (max-width: 480px) {
+        :root {
+            --cell-size: 25vw;
+        }
+        h1 {
+            font-size: 2.5rem;
+        }
+        #status-display {
+            font-size: 1.2rem;
+        }
+    }
